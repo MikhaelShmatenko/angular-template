@@ -1,0 +1,7 @@
+Comandos Angular:
+	- Instalar Angular: "npm install -g @angular/cli"
+	- Instalar Node modules: "npm install"
+	- Iniciar el servidor local de la app: "ng serve"
+	- Crear un componente: "ng generate component <nombre_componente>"
+    - Crear una interfaz: "ng generate interface <nombre-interfaz>"
+    - Crear un servicio: "ng generate service <nombre-servicio> --skip-tests"
