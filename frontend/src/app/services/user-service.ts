@@ -25,4 +25,9 @@ export class UserService {
   addUserToSessionStorage(user: UserInfo) {
     sessionStorage.setItem("user", JSON.stringify(user));
   }
+
+  getUserFromSessionStorage(): UserInfo | null {
+    const user = sessionStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  }
 }

@@ -6,7 +6,7 @@ import { RouterLink, RouterOutlet } from "@angular/router";
   imports: [RouterLink, RouterOutlet],
   template: `
     <main>
-      <a [routerLink]="['/']">
+      <a [routerLink]="['/home']">
         <header class="brand-name">
           <img
             class="brand-logo"

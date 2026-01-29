@@ -49,14 +49,14 @@ export class LogIn {
     this.userService.logIn(user).then((userInfo: UserInfo) => {
       this.userInfo = userInfo;
       this.changeDetectorRef.markForCheck();
-      //console.log(this.userInfo);
+      console.log(this.userInfo);
       if (this.userInfo === undefined) {
         console.log("Credenciales incorrectas");
         alert("Credenciales incorrectas");
       } else {
         //console.log("Credenciales correctas");
         //console.log(userInfo);
-        this.userService.addUserToSessionStorage(user);
+        this.userService.addUserToSessionStorage(this.userInfo);
         this.router.navigate(["home"]);
       }
     });
