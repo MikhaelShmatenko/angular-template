@@ -29,6 +29,60 @@ class ProductServices {
       await client.close();
     }
   }
+  static async getProductsById(id) {
+    const client = new MongoClient(url);
+    try {
+      await client.connect();
+      const dbo = client.db("ExampleDB");
+      const product = await dbo
+        .collection("products")
+        .find({
+          _id: new ObjectId(id),
+        })
+        .toArray();
+      return product;
+    } catch (err) {
+      throw err;
+    } finally {
+      await client.close();
+    }
+  }
+  static async deleteProductsById(id) {
+    const client = new MongoClient(url);
+    try {
+      await client.connect();
+      const dbo = client.db("ExampleDB");
+      await dbo.collection("products").deleteMany({
+        _id: new ObjectId(id),
+      });
+    } catch (err) {
+      throw err;
+    } finally {
+      await client.close();
+    }
+  }
+  static async modifyProduct(product, id) {
+    const client = new MongoClient(url);
+    try {
+      await client.connect();
+      const dbo = client.db("ExampleDB");
+      await dbo.collection("products").updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            name: product.name,
+            type: product.type,
+            price: product.price,
+            exclusive: product.exclusive,
+          },
+        },
+      );
+    } catch (err) {
+      throw err;
+    } finally {
+      await client.close();
+    }
+  }
 }
 
 module.exports = ProductServices;

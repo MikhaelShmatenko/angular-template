@@ -30,4 +30,36 @@ export class ProductService {
       })
       .catch((error) => console.error(error));
   }
+  async getProductById(id: string): Promise<ProductInfo> {
+    return await fetch(`${this.url}/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        return data[0];
+      })
+      .catch((error) => console.error(error));
+  }
+  async deleteProductById(id: string | undefined) {
+    await fetch(`${this.url}/delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => console.error(error));
+  }
+  async modifyProduct(updateProduct: object, id: string | undefined) {
+    await fetch(`${this.url}/modifyProduct/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateProduct),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => console.error(error));
+  }
 }

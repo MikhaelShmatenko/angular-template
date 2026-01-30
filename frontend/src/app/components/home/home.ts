@@ -10,6 +10,18 @@ import { ProductService } from "../../services/product-service";
   imports: [Products, RouterLink, RouterOutlet],
   template: `
     <section>
+      <input
+        type="text"
+        placeholder="Search"
+        #filter
+        (keyup)="filterResults(filter.value, sort.value)"
+      />
+      <select #sort (change)="filterResults(filter.value, sort.value)">
+        <option value="name">By name</option>
+        <option value="type">By type</option>
+      </select>
+    </section>
+    <section>
       <a [routerLink]="['/productForm']">Add Product</a>
     </section>
     <section>
@@ -35,14 +47,22 @@ export class Home {
     });
   }
 
-  filterResults(text: string) {
+  filterResults(text: string, filter: string) {
     if (!text) {
       this.filteredProductsList = this.productsList;
-    } else {
-      this.filteredProductsList = this.filteredProductsList.filter(
-        (productsList) =>
-          productsList?.name.toLowerCase().includes(text.toLowerCase()),
-      );
+      return;
     }
+
+    this.filteredProductsList = this.productsList.filter((product) => {
+      const valueToFilter = product[filter as keyof ProductInfo];
+
+      return String(valueToFilter).toLowerCase().includes(text.toLowerCase());
+    });
+    // else {
+    //   this.filteredProductsList = this.filteredProductsList.filter(
+    //     (productsList) =>
+    //       productsList?.name.toLowerCase().includes(text.toLowerCase()),
+    //   );
+    // }
   }
 }
